@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import {Platform} from 'react-native';
 
 import DatabaseManager, { SystemData } from "../database/DatabaseManager";
 
@@ -83,11 +84,13 @@ function AuthProvider({ children }: AuthProviderProps) {
           ? globalProps.okButtonType
           : "main",
     });
-    setOpenGlobalModal(true);
+
+    setIsLoading(false);
+    setLoadingStatus("");
+    
     setTimeout(() => {
-      setIsLoading(false);
-      setLoadingStatus("");
-    }, 100);
+      setOpenGlobalModal(true);
+    }, Platform.OS === 'ios' ? 600 : 0);
   };
 
   // inicializa a aplicação, montando o banco de dados

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal } from "react-native";
+import { Modal, Platform } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Input } from "../../components/Form/Input";
@@ -69,7 +69,7 @@ export function SaveAccount() {
 
   useEffect(() => {
     console.log("route params =>", params);
-    if (params.account) {
+    if (params && params.account) {
       const { account } = params;
       setId(account.id);
       setIdx(account.idx);
@@ -84,6 +84,9 @@ export function SaveAccount() {
 
   const handleRegisterAccount = async () => {
     try {
+      setIsLoading(true);
+      setLoadingStatus("Salvando a conta...");
+
       const account = {
         id,
         name,
@@ -91,11 +94,8 @@ export function SaveAccount() {
         type,
       };
 
-      setIsLoading(true);
-      setLoadingStatus("Salvando a conta...");
-
       const saveAccountResult = await AccountManager.saveAccount(account);
-
+      
       if (saveAccountResult.success) {
         setModalProps({
           title: "Sucesso",
@@ -104,7 +104,10 @@ export function SaveAccount() {
           okButtonAction: navigator.goBack,
         });
 
-        setOpenAccountModal(true);
+        setTimeout(() => {
+          setOpenAccountModal(true);
+        }, Platform.OS === 'ios' ? 600 : 0);
+        
       } else if (
         saveAccountResult.fieldsError &&
         Object.keys(saveAccountResult.fieldsError).length > 0
@@ -116,7 +119,9 @@ export function SaveAccount() {
           icon: "error",
           okButtonAction: () => {},
         });
-        setOpenAccountModal(true);
+        setTimeout(() => {
+          setOpenAccountModal(true);
+        }, Platform.OS === 'ios' ? 600 : 0);
       } else {
         errorHandler(saveAccountResult.error);
       }
@@ -168,7 +173,7 @@ export function SaveAccount() {
           errorMessage={registerErrors.type.message}
         />
         <Button
-          text="Cadastrar Conta"
+          text="Salvar Conta"
           onAction={() => handleRegisterAccount()}
         />
 
