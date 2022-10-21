@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "sf-app",
+    "scheme": "sfapp",
+    "slug": "sf-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.grochavieira.sfapp"
+    }
+  }
+}
