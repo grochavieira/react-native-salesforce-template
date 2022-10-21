@@ -23,9 +23,9 @@ const env: Env = {
     SALESFORCE_BASE_URL: "https://nscara143-dev-ed.my.salesforce.com",
     REDIRECT_URL: "exp://192.168.1.6:19000",
     CLIENT_ID:
-      "",
+      "3MVG9kBt168mda__U6AnlGWsmX8LR8A4XeZV1M1eJ05hUWVzm0vfoaushdoahs2UCLipL4Q0R14bdpPiImo5lT",
     CLIENT_SECRET:
-      "",
+      "F9A5C74AADD9240EA349D357518EFE7A2938hd2983uhEB909766FDAD919AA0A47B453",
   },
 };
 
